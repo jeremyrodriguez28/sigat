@@ -1,6 +1,6 @@
 # SIGAT - Sistema de Gestión de Activos Tecnológicos
 
-Proyecto académico para el curso **BISV-03 Modelos de Programación I**,
+Proyecto para el curso **BISV-03 Modelos de Programación I**,
 Universidad San Marcos.
 
 Autor: Jeremy Johel Rodríguez Bogantes
@@ -12,19 +12,19 @@ monitores, equipos de red, etc.) de los clientes de una empresa de soporte
 técnico outsourcing: registro de clientes y sedes, inventario de activos,
 historial de mantenimientos, control de garantías, consultas y reportes.
 
-Este primer avance implementa una interfaz web (Flask) con autenticación de
-usuarios, sobre datos de prueba almacenados en memoria. En una siguiente
-etapa se sustituirán por una base de datos.
+Esta entrega implementa una interfaz web (Flask) con autenticación de
+usuarios, sobre datos de prueba almacenados en memoria.
+En una siguiente etapa se sustituirán por una base de datos.
 
 ## Demo en línea
 
-🔗 (agregar aquí el link de Render una vez desplegado)
+https://sigat.onrender.com
 
 **Usuario de prueba:** `admin` &nbsp;&nbsp; **Contraseña:** `1234`
 
 ## Tecnologías
 
-- Python 3 / Flask
+- Python / Flask
 - Jinja2 (plantillas HTML)
 - CSS puro
 
@@ -32,11 +32,11 @@ etapa se sustituirán por una base de datos.
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/TU-USUARIO/sigat.git
+git clone https://github.com/jeremyrodriguez28/sigat
 cd sigat
 
 # 2. Crear entorno virtual (opcional pero recomendado)
-python -m venv venv
+py -m venv venv
 venv\Scripts\activate        # Windows
 source venv/bin/activate     # macOS / Linux
 
