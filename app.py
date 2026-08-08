@@ -114,7 +114,13 @@ def clientes():
     sedes_por_cliente = {}
     for c in data.clientes:
         sedes_por_cliente[c["id"]] = [s for s in data.sedes if s["cliente_id"] == c["id"]]
-    return render_template("clientes.html", clientes=data.clientes, sedes_por_cliente=sedes_por_cliente)
+    mensaje_error = session.pop("mensaje_error", None)
+    return render_template(
+        "clientes.html",
+        clientes=data.clientes,
+        sedes_por_cliente=sedes_por_cliente,
+        mensaje_error=mensaje_error,
+    )
 
 
 @app.route("/clientes/nuevo", methods=["POST"])
@@ -128,6 +134,33 @@ def nuevo_cliente():
         "telefono": request.form.get("telefono", "").strip(),
         "correo": request.form.get("correo", "").strip(),
     })
+    return redirect(url_for("clientes"))
+
+
+@app.route("/clientes/editar/<int:cliente_id>", methods=["GET", "POST"])
+@login_requerido
+def editar_cliente(cliente_id):
+    cliente = data.buscar_cliente(cliente_id)
+    if cliente is None:
+        return redirect(url_for("clientes"))
+
+    if request.method == "POST":
+        cliente["nombre"] = request.form.get("nombre", "").strip()
+        cliente["contacto"] = request.form.get("contacto", "").strip()
+        cliente["telefono"] = request.form.get("telefono", "").strip()
+        cliente["correo"] = request.form.get("correo", "").strip()
+        return redirect(url_for("clientes"))
+
+    return render_template("editar_cliente.html", cliente=cliente)
+
+
+@app.route("/clientes/eliminar/<int:cliente_id>", methods=["POST"])
+@login_requerido
+def eliminar_cliente(cliente_id):
+    exito, mensaje = data.eliminar_cliente(cliente_id)
+    if not exito:
+        # Se guarda un mensaje simple en sesión para mostrarlo tras la redirección
+        session["mensaje_error"] = mensaje
     return redirect(url_for("clientes"))
 
 
@@ -165,6 +198,42 @@ def nuevo_activo():
         "estado": request.form.get("estado", "Operativo"),
         "garantia": request.form.get("garantia", ""),
     })
+    return redirect(url_for("activos"))
+
+
+@app.route("/activos/editar/<int:activo_id>", methods=["GET", "POST"])
+@login_requerido
+def editar_activo(activo_id):
+    activo = data.buscar_activo(activo_id)
+    if activo is None:
+        return redirect(url_for("activos"))
+
+    if request.method == "POST":
+        activo["serie"] = request.form.get("serie", "").strip()
+        activo["placa"] = request.form.get("placa", "").strip()
+        activo["cliente_id"] = int(request.form.get("cliente_id"))
+        activo["sede_id"] = int(request.form.get("sede_id"))
+        activo["usuario"] = request.form.get("usuario", "").strip()
+        activo["categoria"] = request.form.get("categoria", "").strip()
+        activo["marca"] = request.form.get("marca", "").strip()
+        activo["modelo"] = request.form.get("modelo", "").strip()
+        activo["fecha_adquisicion"] = request.form.get("fecha_adquisicion", "")
+        activo["estado"] = request.form.get("estado", "Operativo")
+        activo["garantia"] = request.form.get("garantia", "")
+        return redirect(url_for("activos"))
+
+    return render_template(
+        "editar_activo.html",
+        activo=activo,
+        clientes=data.clientes,
+        sedes=data.sedes,
+    )
+
+
+@app.route("/activos/eliminar/<int:activo_id>", methods=["POST"])
+@login_requerido
+def eliminar_activo(activo_id):
+    data.eliminar_activo(activo_id)
     return redirect(url_for("activos"))
 
 

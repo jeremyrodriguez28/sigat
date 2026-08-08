@@ -89,6 +89,7 @@
                 <th>Modelo</th>
                 <th>Estado</th>
                 <th>Garantía</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -110,6 +111,13 @@
                     {% endif %}
                 </td>
                 <td>{{ a.garantia }}</td>
+                <td>
+                    <a href="{{ url_for('editar_activo', activo_id=a.id) }}" class="btn btn-borde" style="padding:0.4rem 0.7rem;">✏️ Editar</a>
+                    <form method="POST" action="{{ url_for('eliminar_activo', activo_id=a.id) }}" style="display:inline;"
+                          onsubmit="return confirm('¿Eliminar el activo {{ a.serie }}? Esta acción no se puede deshacer.');">
+                        <button type="submit" class="btn btn-borde" style="padding:0.4rem 0.7rem; color:#ef4444;">🗑️ Eliminar</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

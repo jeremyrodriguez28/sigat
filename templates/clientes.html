@@ -37,6 +37,10 @@
         <span class="texto-secundario">Total: {{ clientes|length }}</span>
     </div>
 
+    {% if mensaje_error %}
+        <div class="mensaje-error">{{ mensaje_error }}</div>
+    {% endif %}
+
     {% if clientes %}
     <table>
         <thead>
@@ -46,6 +50,7 @@
                 <th>Teléfono</th>
                 <th>Correo</th>
                 <th>Sedes</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -61,6 +66,13 @@
                     {% else %}
                         <span class="texto-secundario">Sin sedes</span>
                     {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_cliente', cliente_id=c.id) }}" class="btn btn-borde" style="padding:0.4rem 0.7rem;">✏️ Editar</a>
+                    <form method="POST" action="{{ url_for('eliminar_cliente', cliente_id=c.id) }}" style="display:inline;"
+                          onsubmit="return confirm('¿Eliminar el cliente {{ c.nombre }}? Esta acción no se puede deshacer.');">
+                        <button type="submit" class="btn btn-borde" style="padding:0.4rem 0.7rem; color:#ef4444;">🗑️ Eliminar</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}

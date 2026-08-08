@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block titulo %}Editar Activo{% endblock %}
+{% block titulo_pagina %}Editar Activo{% endblock %}
+
+{% block contenido %}
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>✏️ Editar Activo</h2>
+        <a href="{{ url_for('activos') }}" class="btn btn-borde">← Volver</a>
+    </div>
+    <form method="POST">
+        <div class="form-grid">
+            <div>
+                <label>N° de serie</label>
+                <input type="text" name="serie" value="{{ activo.serie }}" required>
+            </div>
+            <div>
+                <label>Placa</label>
+                <input type="text" name="placa" value="{{ activo.placa }}" required>
+            </div>
+            <div>
+                <label>Cliente</label>
+                <select name="cliente_id" required>
+                    {% for c in clientes %}
+                        <option value="{{ c.id }}" {{ "selected" if c.id == activo.cliente_id }}>{{ c.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Sede</label>
+                <select name="sede_id" required>
+                    {% for s in sedes %}
+                        <option value="{{ s.id }}" {{ "selected" if s.id == activo.sede_id }}>{{ s.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Usuario asignado</label>
+                <input type="text" name="usuario" value="{{ activo.usuario }}">
+            </div>
+            <div>
+                <label>Categoría</label>
+                <input type="text" name="categoria" value="{{ activo.categoria }}">
+            </div>
+            <div>
+                <label>Marca</label>
+                <input type="text" name="marca" value="{{ activo.marca }}">
+            </div>
+            <div>
+                <label>Modelo</label>
+                <input type="text" name="modelo" value="{{ activo.modelo }}">
+            </div>
+            <div>
+                <label>Fecha de adquisición</label>
+                <input type="date" name="fecha_adquisicion" value="{{ activo.fecha_adquisicion }}">
+            </div>
+            <div>
+                <label>Estado</label>
+                <select name="estado">
+                    <option value="Operativo" {{ "selected" if activo.estado == "Operativo" }}>Operativo</option>
+                    <option value="En mantenimiento" {{ "selected" if activo.estado == "En mantenimiento" }}>En mantenimiento</option>
+                    <option value="Fuera de servicio" {{ "selected" if activo.estado == "Fuera de servicio" }}>Fuera de servicio</option>
+                </select>
+            </div>
+            <div>
+                <label>Vencimiento de garantía</label>
+                <input type="date" name="garantia" value="{{ activo.garantia }}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-azul">Guardar cambios</button>
+    </form>
+</div>
+
+{% endblock %}

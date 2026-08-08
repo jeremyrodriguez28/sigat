@@ -103,3 +103,24 @@ def nombre_cliente(cliente_id):
 def nombre_sede(sede_id):
     s = buscar_sede(sede_id)
     return s["nombre"] if s else "N/D"
+
+
+def activos_de_cliente(cliente_id):
+    return [a for a in activos if a["cliente_id"] == cliente_id]
+
+
+def eliminar_cliente(cliente_id):
+    """Elimina un cliente solo si no tiene activos asociados.
+    Devuelve (True, None) si se eliminó, o (False, mensaje) si no se pudo."""
+    if activos_de_cliente(cliente_id):
+        return False, "No se puede eliminar: el cliente tiene activos registrados a su nombre."
+    global clientes, sedes
+    clientes = [c for c in clientes if c["id"] != cliente_id]
+    sedes = [s for s in sedes if s["cliente_id"] != cliente_id]
+    return True, None
+
+
+def eliminar_activo(activo_id):
+    global activos, mantenimientos
+    activos = [a for a in activos if a["id"] != activo_id]
+    mantenimientos = [m for m in mantenimientos if m["activo_id"] != activo_id]
