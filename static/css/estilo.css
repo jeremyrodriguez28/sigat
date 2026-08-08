@@ -72,6 +72,12 @@ a {
   margin: 1rem 0 0.2rem;
 }
 
+.login-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
 .login-lado-izq h1 span {
   color: var(--azul-claro);
 }
@@ -215,6 +221,13 @@ a {
 .sidebar .logo-icono {
   font-size: 1.6rem;
   color: var(--azul-claro);
+}
+
+.sidebar .logo-imagen {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .sidebar .logo-texto strong {
