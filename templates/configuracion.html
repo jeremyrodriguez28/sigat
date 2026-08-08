@@ -5,17 +5,15 @@
 {% block contenido %}
 
 <div class="panel">
-    <div class="panel-titulo">
-        <h2>⚙️ Configuración del Sistema</h2>
-    </div>
-    <p class="texto-secundario">
-        Sesión activa: <strong>{{ session.get('nombre') }}</strong> ({{ session.get('rol') }})
-    </p>
-    <p class="texto-secundario" style="line-height:1.6;">
-        Esta sección quedará disponible en una siguiente etapa del proyecto para
-        administrar usuarios, roles y preferencias del sistema, conforme a lo indicado
-        en los objetivos de escalabilidad del proyecto SIGAT.
-    </p>
+ <div class="panel-titulo">
+ <h2>Configuración del Sistema</h2>
+ </div>
+ <p class="texto-secundario">Sesión activa: <strong>{{ session.get('nombre') }}</strong> ({{ session.get('rol') }})
+ </p>
+ <p class="texto-secundario" style="line-height:1.6;">Esta sección quedará disponible en una siguiente etapa del proyecto para
+ administrar usuarios, roles y preferencias del sistema, conforme a lo indicado
+ en los objetivos de escalabilidad del proyecto SIGAT.
+ </p>
 </div>
 
 {% endblock %}

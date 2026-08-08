@@ -5,118 +5,118 @@
 {% block contenido %}
 
 <div class="tarjetas">
-    <div class="tarjeta">
-        <div class="tarjeta-encabezado">
-            <div class="tarjeta-icono azul">💻</div>
-            <span class="etiqueta">Total de Activos</span>
-        </div>
-        <div class="valor">{{ total_activos }}</div>
-    </div>
+ <div class="tarjeta">
+ <div class="tarjeta-encabezado">
+ <div class="tarjeta-icono azul"></div>
+ <span class="etiqueta">Total de Activos</span>
+ </div>
+ <div class="valor">{{ total_activos }}</div>
+ </div>
 
-    <div class="tarjeta">
-        <div class="tarjeta-encabezado">
-            <div class="tarjeta-icono cian">👥</div>
-            <span class="etiqueta">Clientes</span>
-        </div>
-        <div class="valor">{{ total_clientes }}</div>
-    </div>
+ <div class="tarjeta">
+ <div class="tarjeta-encabezado">
+ <div class="tarjeta-icono cian"></div>
+ <span class="etiqueta">Clientes</span>
+ </div>
+ <div class="valor">{{ total_clientes }}</div>
+ </div>
 
-    <div class="tarjeta">
-        <div class="tarjeta-encabezado">
-            <div class="tarjeta-icono naranja">🔧</div>
-            <span class="etiqueta">Mantenimientos Pendientes</span>
-        </div>
-        <div class="valor">{{ mantenimientos_pendientes }}</div>
-    </div>
+ <div class="tarjeta">
+ <div class="tarjeta-encabezado">
+ <div class="tarjeta-icono naranja"></div>
+ <span class="etiqueta">Mantenimientos Pendientes</span>
+ </div>
+ <div class="valor">{{ mantenimientos_pendientes }}</div>
+ </div>
 
-    <div class="tarjeta">
-        <div class="tarjeta-encabezado">
-            <div class="tarjeta-icono verde">🛡️</div>
-            <span class="etiqueta">Garantías por Vencer</span>
-        </div>
-        <div class="valor">{{ garantias_por_vencer }}</div>
-    </div>
+ <div class="tarjeta">
+ <div class="tarjeta-encabezado">
+ <div class="tarjeta-icono verde"></div>
+ <span class="etiqueta">Garantías por Vencer</span>
+ </div>
+ <div class="valor">{{ garantias_por_vencer }}</div>
+ </div>
 </div>
 
 <div class="dos-columnas">
-    <div class="panel">
-        <div class="panel-titulo">
-            <h2>🕒 Activos Recientes</h2>
-            <a href="{{ url_for('activos') }}" class="btn btn-borde">Ver todos →</a>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Serie</th>
-                    <th>Cliente</th>
-                    <th>Usuario</th>
-                    <th>Estado</th>
-                    <th>Garantía</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for a in activos_recientes %}
-                <tr>
-                    <td>{{ a.serie }}</td>
-                    <td>{{ nombre_cliente(a.cliente_id) }}</td>
-                    <td>{{ a.usuario }}</td>
-                    <td>
-                        {% if a.estado == "Operativo" %}
-                            <span class="pill operativo">Operativo</span>
-                        {% elif a.estado == "En mantenimiento" %}
-                            <span class="pill mantenimiento">En mantenimiento</span>
-                        {% else %}
-                            <span class="pill fuera">Fuera de servicio</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ a.garantia }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+ <div class="panel">
+ <div class="panel-titulo">
+ <h2>Activos Recientes</h2>
+ <a href="{{ url_for('activos') }}" class="btn btn-borde">Ver todos</a>
+ </div>
+ <table>
+ <thead>
+ <tr>
+ <th>Serie</th>
+ <th>Cliente</th>
+ <th>Usuario</th>
+ <th>Estado</th>
+ <th>Garantía</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for a in activos_recientes %}
+ <tr>
+ <td>{{ a.serie }}</td>
+ <td>{{ nombre_cliente(a.cliente_id) }}</td>
+ <td>{{ a.usuario }}</td>
+ <td>
+ {% if a.estado == "Operativo" %}
+ <span class="pill operativo">Operativo</span>
+ {% elif a.estado == "En mantenimiento" %}
+ <span class="pill mantenimiento">En mantenimiento</span>
+ {% else %}
+ <span class="pill fuera">Fuera de servicio</span>
+ {% endif %}
+ </td>
+ <td>{{ a.garantia }}</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ </div>
 
-    <div class="panel">
-        <div class="panel-titulo">
-            <h2>⚡ Acciones rápidas</h2>
-        </div>
-        <a href="{{ url_for('activos') }}" style="text-decoration:none;">
-            <div class="accion-rapida">
-                <span>💻</span>
-                <div>
-                    <strong>Registrar Activo</strong>
-                    <small>Agregar un nuevo activo tecnológico</small>
-                </div>
-            </div>
-        </a>
-        <a href="{{ url_for('clientes') }}" style="text-decoration:none;">
-            <div class="accion-rapida">
-                <span>👥</span>
-                <div>
-                    <strong>Registrar Cliente</strong>
-                    <small>Agregar un nuevo cliente o sede</small>
-                </div>
-            </div>
-        </a>
-        <a href="{{ url_for('mantenimientos') }}" style="text-decoration:none;">
-            <div class="accion-rapida">
-                <span>🔧</span>
-                <div>
-                    <strong>Registrar Mantenimiento</strong>
-                    <small>Registrar mantenimiento preventivo o correctivo</small>
-                </div>
-            </div>
-        </a>
-        <a href="{{ url_for('reportes') }}" style="text-decoration:none;">
-            <div class="accion-rapida">
-                <span>📊</span>
-                <div>
-                    <strong>Generar Reporte</strong>
-                    <small>Generar informes y reportes del sistema</small>
-                </div>
-            </div>
-        </a>
-    </div>
+ <div class="panel">
+ <div class="panel-titulo">
+ <h2>Acciones rápidas</h2>
+ </div>
+ <a href="{{ url_for('activos') }}" style="text-decoration:none;">
+ <div class="accion-rapida">
+ <span></span>
+ <div>
+ <strong>Registrar Activo</strong>
+ <small>Agregar un nuevo activo tecnológico</small>
+ </div>
+ </div>
+ </a>
+ <a href="{{ url_for('clientes') }}" style="text-decoration:none;">
+ <div class="accion-rapida">
+ <span></span>
+ <div>
+ <strong>Registrar Cliente</strong>
+ <small>Agregar un nuevo cliente o sede</small>
+ </div>
+ </div>
+ </a>
+ <a href="{{ url_for('mantenimientos') }}" style="text-decoration:none;">
+ <div class="accion-rapida">
+ <span></span>
+ <div>
+ <strong>Registrar Mantenimiento</strong>
+ <small>Registrar mantenimiento preventivo o correctivo</small>
+ </div>
+ </div>
+ </a>
+ <a href="{{ url_for('reportes') }}" style="text-decoration:none;">
+ <div class="accion-rapida">
+ <span></span>
+ <div>
+ <strong>Generar Reporte</strong>
+ <small>Generar informes y reportes del sistema</small>
+ </div>
+ </div>
+ </a>
+ </div>
 </div>
 
 {% endblock %}

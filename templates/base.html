@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGAT - {% block titulo %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>SIGAT - {% block titulo %}{% endblock %}</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
 </head>
 <body>
-    <div class="app-layout">
-        <aside class="sidebar">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo SIGAT" class="logo-imagen">
-            </div>
-            <nav>
-                <a href="{{ url_for('dashboard') }}" class="{{ 'activo' if request.endpoint == 'dashboard' }}">🏠 Dashboard</a>
-                <a href="{{ url_for('clientes') }}" class="{{ 'activo' if request.endpoint == 'clientes' }}">👥 Clientes</a>
-                <a href="{{ url_for('activos') }}" class="{{ 'activo' if request.endpoint == 'activos' }}">💻 Activos</a>
-                <a href="{{ url_for('mantenimientos') }}" class="{{ 'activo' if request.endpoint == 'mantenimientos' }}">🔧 Mantenimientos</a>
-                <a href="{{ url_for('garantias') }}" class="{{ 'activo' if request.endpoint == 'garantias' }}">🛡️ Garantías</a>
-                <a href="{{ url_for('consultas') }}" class="{{ 'activo' if request.endpoint == 'consultas' }}">🔍 Consultas</a>
-                <a href="{{ url_for('reportes') }}" class="{{ 'activo' if request.endpoint == 'reportes' }}">📊 Reportes</a>
-                <a href="{{ url_for('configuracion') }}" class="{{ 'activo' if request.endpoint == 'configuracion' }}">⚙️ Configuración</a>
-            </nav>
-            <div class="sidebar-pie">
-                SIGAT &copy; 2026<br>Todos los derechos reservados
-            </div>
-        </aside>
+ <div class="app-layout">
+ <aside class="sidebar">
+ <div class="logo">
+ <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo SIGAT" class="logo-imagen">
+ </div>
+ <nav>
+ <a href="{{ url_for('dashboard') }}" class="{{ 'activo' if request.endpoint == 'dashboard' }}">Dashboard</a>
+ <a href="{{ url_for('clientes') }}" class="{{ 'activo' if request.endpoint == 'clientes' }}">Clientes</a>
+ <a href="{{ url_for('activos') }}" class="{{ 'activo' if request.endpoint == 'activos' }}">Activos</a>
+ <a href="{{ url_for('mantenimientos') }}" class="{{ 'activo' if request.endpoint == 'mantenimientos' }}">Mantenimientos</a>
+ <a href="{{ url_for('garantias') }}" class="{{ 'activo' if request.endpoint == 'garantias' }}">Garantías</a>
+ <a href="{{ url_for('consultas') }}" class="{{ 'activo' if request.endpoint == 'consultas' }}">Consultas</a>
+ <a href="{{ url_for('reportes') }}" class="{{ 'activo' if request.endpoint == 'reportes' }}">Reportes</a>
+ <a href="{{ url_for('configuracion') }}" class="{{ 'activo' if request.endpoint == 'configuracion' }}">Configuración</a>
+ </nav>
+ <div class="sidebar-pie">SIGAT &copy; 2026<br>Todos los derechos reservados
+ </div>
+ </aside>
 
-        <div class="contenido">
-            <header class="topbar">
-                <h1>{% block titulo_pagina %}{% endblock %}</h1>
-                <div class="topbar-derecha">
-                    <form class="buscador-form" method="get" action="{{ url_for('consultas') }}">
-                        <input class="buscador" type="text" name="q" placeholder="Buscar activos, clientes, serie...">
-                    </form>
-                    <div class="usuario-chip">
-                        <span class="usuario-avatar">{{ session.get('nombre', 'U')[0] }}</span>
-                        <span>{{ session.get('nombre', 'Usuario') }}</span>
-                        <a class="cerrar-sesion" href="{{ url_for('logout') }}">Salir</a>
-                    </div>
-                </div>
-            </header>
+ <div class="contenido">
+ <header class="topbar">
+ <h1>{% block titulo_pagina %}{% endblock %}</h1>
+ <div class="topbar-derecha">
+ <form class="buscador-form" method="get" action="{{ url_for('consultas') }}">
+ <input class="buscador" type="text" name="q" placeholder="Buscar activos, clientes, serie...">
+ </form>
+ <div class="usuario-chip">
+ <span class="usuario-avatar">{{ session.get('nombre', 'U')[0] }}</span>
+ <span>{{ session.get('nombre', 'Usuario') }}</span>
+ <a class="cerrar-sesion" href="{{ url_for('logout') }}">Salir</a>
+ </div>
+ </div>
+ </header>
 
-            <main class="pagina">
-                {% block contenido %}{% endblock %}
-            </main>
-        </div>
-    </div>
+ <main class="pagina">
+ {% block contenido %}{% endblock %}
+ </main>
+ </div>
+ </div>
 </body>
 </html>

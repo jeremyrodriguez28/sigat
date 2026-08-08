@@ -5,82 +5,82 @@
 {% block contenido %}
 
 <div class="panel">
-    <div class="panel-titulo">
-        <h2>➕ Registrar Cliente</h2>
-    </div>
-    <form method="POST" action="{{ url_for('nuevo_cliente') }}">
-        <div class="form-grid">
-            <div>
-                <label>Nombre / Razón social</label>
-                <input type="text" name="nombre" required>
-            </div>
-            <div>
-                <label>Contacto</label>
-                <input type="text" name="contacto" required>
-            </div>
-            <div>
-                <label>Teléfono</label>
-                <input type="text" name="telefono">
-            </div>
-            <div>
-                <label>Correo</label>
-                <input type="email" name="correo">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-azul">Guardar cliente</button>
-    </form>
+ <div class="panel-titulo">
+ <h2>Registrar Cliente</h2>
+ </div>
+ <form method="POST" action="{{ url_for('nuevo_cliente') }}">
+ <div class="form-grid">
+ <div>
+ <label>Nombre / Razón social</label>
+ <input type="text" name="nombre" required>
+ </div>
+ <div>
+ <label>Contacto</label>
+ <input type="text" name="contacto" required>
+ </div>
+ <div>
+ <label>Teléfono</label>
+ <input type="text" name="telefono">
+ </div>
+ <div>
+ <label>Correo</label>
+ <input type="email" name="correo">
+ </div>
+ </div>
+ <button type="submit" class="btn btn-azul">Guardar cliente</button>
+ </form>
 </div>
 
 <div class="panel">
-    <div class="panel-titulo">
-        <h2>👥 Clientes Registrados</h2>
-        <span class="texto-secundario">Total: {{ clientes|length }}</span>
-    </div>
+ <div class="panel-titulo">
+ <h2>Clientes Registrados</h2>
+ <span class="texto-secundario">Total: {{ clientes|length }}</span>
+ </div>
 
-    {% if mensaje_error %}
-        <div class="mensaje-error">{{ mensaje_error }}</div>
-    {% endif %}
+ {% if mensaje_error %}
+ <div class="mensaje-error">{{ mensaje_error }}</div>
+ {% endif %}
 
-    {% if clientes %}
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Contacto</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Sedes</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for c in clientes %}
-            <tr>
-                <td>{{ c.nombre }}</td>
-                <td>{{ c.contacto }}</td>
-                <td>{{ c.telefono }}</td>
-                <td>{{ c.correo }}</td>
-                <td>
-                    {% for s in sedes_por_cliente.get(c.id, []) %}
-                        {{ s.nombre }}{% if not loop.last %}, {% endif %}
-                    {% else %}
-                        <span class="texto-secundario">Sin sedes</span>
-                    {% endfor %}
-                </td>
-                <td>
-                    <a href="{{ url_for('editar_cliente', cliente_id=c.id) }}" class="btn btn-borde" style="padding:0.4rem 0.7rem;">✏️ Editar</a>
-                    <form method="POST" action="{{ url_for('eliminar_cliente', cliente_id=c.id) }}" style="display:inline;"
-                          onsubmit="return confirm('¿Eliminar el cliente {{ c.nombre }}? Esta acción no se puede deshacer.');">
-                        <button type="submit" class="btn btn-borde" style="padding:0.4rem 0.7rem; color:#ef4444;">🗑️ Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-        <p class="vacio">Aún no hay clientes registrados.</p>
-    {% endif %}
+ {% if clientes %}
+ <table>
+ <thead>
+ <tr>
+ <th>Nombre</th>
+ <th>Contacto</th>
+ <th>Teléfono</th>
+ <th>Correo</th>
+ <th>Sedes</th>
+ <th>Acciones</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for c in clientes %}
+ <tr>
+ <td>{{ c.nombre }}</td>
+ <td>{{ c.contacto }}</td>
+ <td>{{ c.telefono }}</td>
+ <td>{{ c.correo }}</td>
+ <td>
+ {% for s in sedes_por_cliente.get(c.id, []) %}
+ {{ s.nombre }}{% if not loop.last %}, {% endif %}
+ {% else %}
+ <span class="texto-secundario">Sin sedes</span>
+ {% endfor %}
+ </td>
+ <td>
+ <a href="{{ url_for('editar_cliente', cliente_id=c.id) }}" class="btn btn-borde" style="padding:0.4rem 0.7rem;">Editar</a>
+ <form method="POST" action="{{ url_for('eliminar_cliente', cliente_id=c.id) }}" style="display:inline;"
+ onsubmit="return confirm('¿Eliminar el cliente {{ c.nombre }}? Esta acción no se puede deshacer.');">
+ <button type="submit" class="btn btn-borde" style="padding:0.4rem 0.7rem; color:#ef4444;">Eliminar</button>
+ </form>
+ </td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ {% else %}
+ <p class="vacio">Aún no hay clientes registrados.</p>
+ {% endif %}
 </div>
 
 {% endblock %}

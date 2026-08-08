@@ -27,9 +27,15 @@
 
 body {
   margin: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
   background-color: var(--bg-principal);
   color: var(--texto-principal);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .valor, .btn, .btn-primario {
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 a {
