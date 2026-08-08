@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block titulo %}Activos{% endblock %}
+{% block titulo_pagina %}Activos{% endblock %}
+
+{% block contenido %}
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>➕ Registrar Activo</h2>
+    </div>
+    <form method="POST" action="{{ url_for('nuevo_activo') }}">
+        <div class="form-grid">
+            <div>
+                <label>N° de serie</label>
+                <input type="text" name="serie" required>
+            </div>
+            <div>
+                <label>Placa</label>
+                <input type="text" name="placa" required>
+            </div>
+            <div>
+                <label>Cliente</label>
+                <select name="cliente_id" required>
+                    {% for c in clientes %}
+                        <option value="{{ c.id }}">{{ c.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Sede</label>
+                <select name="sede_id" required>
+                    {% for s in sedes %}
+                        <option value="{{ s.id }}">{{ s.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Usuario asignado</label>
+                <input type="text" name="usuario">
+            </div>
+            <div>
+                <label>Categoría</label>
+                <input type="text" name="categoria" placeholder="Laptop, Monitor, etc.">
+            </div>
+            <div>
+                <label>Marca</label>
+                <input type="text" name="marca">
+            </div>
+            <div>
+                <label>Modelo</label>
+                <input type="text" name="modelo">
+            </div>
+            <div>
+                <label>Fecha de adquisición</label>
+                <input type="date" name="fecha_adquisicion">
+            </div>
+            <div>
+                <label>Estado</label>
+                <select name="estado">
+                    <option value="Operativo">Operativo</option>
+                    <option value="En mantenimiento">En mantenimiento</option>
+                    <option value="Fuera de servicio">Fuera de servicio</option>
+                </select>
+            </div>
+            <div>
+                <label>Vencimiento de garantía</label>
+                <input type="date" name="garantia">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-azul">Guardar activo</button>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>💻 Activos Registrados</h2>
+        <span class="texto-secundario">Total: {{ activos|length }}</span>
+    </div>
+
+    {% if activos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Serie</th>
+                <th>Cliente</th>
+                <th>Sede</th>
+                <th>Usuario</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Estado</th>
+                <th>Garantía</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in activos %}
+            <tr>
+                <td>{{ a.serie }}</td>
+                <td>{{ nombre_cliente(a.cliente_id) }}</td>
+                <td>{{ nombre_sede(a.sede_id) }}</td>
+                <td>{{ a.usuario }}</td>
+                <td>{{ a.marca }}</td>
+                <td>{{ a.modelo }}</td>
+                <td>
+                    {% if a.estado == "Operativo" %}
+                        <span class="pill operativo">Operativo</span>
+                    {% elif a.estado == "En mantenimiento" %}
+                        <span class="pill mantenimiento">En mantenimiento</span>
+                    {% else %}
+                        <span class="pill fuera">Fuera de servicio</span>
+                    {% endif %}
+                </td>
+                <td>{{ a.garantia }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="vacio">Aún no hay activos registrados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

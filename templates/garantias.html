@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block titulo %}Garantías{% endblock %}
+{% block titulo_pagina %}Garantías{% endblock %}
+
+{% block contenido %}
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>🛡️ Control de Garantías</h2>
+        <span class="texto-secundario">Total: {{ activos|length }}</span>
+    </div>
+
+    {% if activos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Serie</th>
+                <th>Cliente</th>
+                <th>Marca / Modelo</th>
+                <th>Vencimiento</th>
+                <th>Días restantes</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in activos %}
+            <tr>
+                <td>{{ a.serie }}</td>
+                <td>{{ nombre_cliente(a.cliente_id) }}</td>
+                <td>{{ a.marca }} {{ a.modelo }}</td>
+                <td>{{ a.garantia }}</td>
+                <td>{{ a.dias_restantes if a.dias_restantes is not none else "N/D" }}</td>
+                <td>
+                    {% if a.estado_garantia == "Vigente" %}
+                        <span class="pill vigente">Vigente</span>
+                    {% elif a.estado_garantia == "Próxima a vencer" %}
+                        <span class="pill proxima">Próxima a vencer</span>
+                    {% elif a.estado_garantia == "Vencida" %}
+                        <span class="pill vencida">Vencida</span>
+                    {% else %}
+                        <span class="texto-secundario">Sin datos</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="vacio">No hay activos registrados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

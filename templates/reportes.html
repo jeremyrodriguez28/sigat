@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block titulo %}Reportes{% endblock %}
+{% block titulo_pagina %}Reportes{% endblock %}
+
+{% block contenido %}
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>📄 Generación de Reportes</h2>
+    </div>
+    <form method="GET" action="{{ url_for('reportes') }}">
+        <div class="form-grid">
+            <div>
+                <label>Cliente</label>
+                <select name="cliente_id">
+                    <option value="todos" {{ "selected" if cliente_id == "todos" }}>Todos los clientes</option>
+                    {% for c in clientes %}
+                        <option value="{{ c.id }}" {{ "selected" if cliente_id == c.id|string }}>{{ c.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Sede</label>
+                <select name="sede_id">
+                    <option value="todas" {{ "selected" if sede_id == "todas" }}>Todas las sedes</option>
+                    {% for s in sedes %}
+                        <option value="{{ s.id }}" {{ "selected" if sede_id == s.id|string }}>{{ s.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Estado del activo</label>
+                <select name="estado">
+                    <option value="todos" {{ "selected" if estado == "todos" }}>Todos los estados</option>
+                    <option value="Operativo" {{ "selected" if estado == "Operativo" }}>Operativo</option>
+                    <option value="En mantenimiento" {{ "selected" if estado == "En mantenimiento" }}>En mantenimiento</option>
+                    <option value="Fuera de servicio" {{ "selected" if estado == "Fuera de servicio" }}>Fuera de servicio</option>
+                </select>
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+                <button type="submit" class="btn btn-azul">⚙️ Generar Reporte</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="dos-columnas">
+    <div class="panel">
+        <div class="panel-titulo">
+            <h2>📋 Inventario General</h2>
+            <span class="texto-secundario">Total de registros: {{ activos|length }}</span>
+        </div>
+
+        {% if activos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>N° Serie</th>
+                    <th>Cliente</th>
+                    <th>Sede</th>
+                    <th>Usuario</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in activos %}
+                <tr>
+                    <td>{{ a.serie }}</td>
+                    <td>{{ nombre_cliente(a.cliente_id) }}</td>
+                    <td>{{ nombre_sede(a.sede_id) }}</td>
+                    <td>{{ a.usuario }}</td>
+                    <td>{{ a.marca }}</td>
+                    <td>{{ a.modelo }}</td>
+                    <td>
+                        {% if a.estado == "Operativo" %}
+                            <span class="pill operativo">Operativo</span>
+                        {% elif a.estado == "En mantenimiento" %}
+                            <span class="pill mantenimiento">En mantenimiento</span>
+                        {% else %}
+                            <span class="pill fuera">Fuera de servicio</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="vacio">No hay resultados con los filtros seleccionados.</p>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <div class="panel-titulo">
+            <h2>⬇️ Acciones</h2>
+        </div>
+        <p class="texto-secundario" style="font-size:0.85rem; line-height:1.5;">
+            La exportación a PDF/Excel y el envío por correo son funcionalidades
+            planificadas para una siguiente etapa del proyecto (ver "Escalabilidad"
+            en el análisis de necesidades no funcionales).
+        </p>
+        <button class="btn btn-borde" style="width:100%; margin-bottom:0.6rem;" disabled>🖨️ Exportar a PDF</button>
+        <button class="btn btn-borde" style="width:100%; margin-bottom:0.6rem;" disabled>📊 Exportar a Excel</button>
+        <button class="btn btn-borde" style="width:100%;" disabled>✉️ Enviar por correo</button>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAT - Iniciar sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-grid">
+            <div class="login-lado-izq">
+                <span style="font-size:2.5rem;">🖥️</span>
+                <h1>SIG<span>AT</span></h1>
+                <p class="subtitulo">SISTEMA DE GESTIÓN DE ACTIVOS TECNOLÓGICOS</p>
+                <p>Administra y controla los activos tecnológicos de tu empresa de manera eficiente y segura.</p>
+            </div>
+            <div class="login-lado-der">
+                <div class="login-icono">🔒</div>
+                <h2>Bienvenido de nuevo</h2>
+                <p class="subtexto">Inicia sesión para continuar</p>
+
+                {% if error %}
+                    <div class="mensaje-error">{{ error }}</div>
+                {% endif %}
+
+                <form method="POST">
+                    <div class="campo">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required autofocus>
+                    </div>
+                    <div class="campo">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-primario">Iniciar sesión</button>
+                </form>
+
+                <p class="login-pie">Usuario de prueba: <strong>admin</strong> / Contraseña: <strong>1234</strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

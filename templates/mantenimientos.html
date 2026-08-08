@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block titulo %}Mantenimientos{% endblock %}
+{% block titulo_pagina %}Mantenimientos{% endblock %}
+
+{% block contenido %}
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>➕ Registrar Mantenimiento</h2>
+    </div>
+    <form method="POST" action="{{ url_for('nuevo_mantenimiento') }}">
+        <div class="form-grid">
+            <div>
+                <label>Activo (N° de serie)</label>
+                <select name="activo_id" required>
+                    {% for a in activos %}
+                        <option value="{{ a.id }}">{{ a.serie }} — {{ a.marca }} {{ a.modelo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Tipo</label>
+                <select name="tipo">
+                    <option value="Preventivo">Preventivo</option>
+                    <option value="Correctivo">Correctivo</option>
+                </select>
+            </div>
+            <div>
+                <label>Fecha</label>
+                <input type="date" name="fecha" required>
+            </div>
+            <div>
+                <label>Descripción</label>
+                <input type="text" name="descripcion" placeholder="Trabajo realizado">
+            </div>
+            <div>
+                <label>Observaciones</label>
+                <input type="text" name="observaciones">
+            </div>
+        </div>
+        <label style="font-size:0.85rem; display:flex; align-items:center; gap:0.4rem; margin-bottom:1rem;">
+            <input type="checkbox" name="marcar_en_mantenimiento" style="width:auto;">
+            Marcar el activo como "En mantenimiento"
+        </label>
+        <button type="submit" class="btn btn-azul">Guardar mantenimiento</button>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="panel-titulo">
+        <h2>🔧 Historial de Mantenimientos</h2>
+        <span class="texto-secundario">Total: {{ mantenimientos|length }}</span>
+    </div>
+
+    {% if mantenimientos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Activo</th>
+                <th>Tipo</th>
+                <th>Fecha</th>
+                <th>Técnico</th>
+                <th>Descripción</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in mantenimientos %}
+            <tr>
+                <td>{{ m.activo_serie }}</td>
+                <td>{{ m.tipo }}</td>
+                <td>{{ m.fecha }}</td>
+                <td>{{ m.tecnico }}</td>
+                <td>{{ m.descripcion }}</td>
+                <td>{{ m.observaciones }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="vacio">Aún no hay mantenimientos registrados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
