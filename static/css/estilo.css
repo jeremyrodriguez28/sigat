@@ -73,9 +73,10 @@ a {
 }
 
 .login-logo {
-  width: 64px;
-  height: 64px;
+  width: 160px;
+  height: 160px;
   object-fit: contain;
+  margin-bottom: 0.5rem;
 }
 
 .login-lado-izq h1 span {
@@ -212,7 +213,7 @@ a {
 .sidebar .logo {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  justify-content: center;
   padding: 0 0.5rem 1.5rem;
   border-bottom: 1px solid var(--azul-borde);
   margin-bottom: 1rem;
@@ -224,8 +225,8 @@ a {
 }
 
 .sidebar .logo-imagen {
-  width: 42px;
-  height: 42px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
   flex-shrink: 0;
 }
